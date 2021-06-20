@@ -13,50 +13,48 @@ public class Vigenere implements Cipher {
     @Override
     public String encode(String stringToEncode, String key) {
         PrepareString prepare = new PrepareString();
-        prepare.prepareString(stringToEncode);
+        stringToEncode = prepare.prepareString(stringToEncode);
         StringCharArrayConverter change = new StringCharArrayConverter();
         char[] charArray = change.toCharArray(stringToEncode);
         char[] keyArray = change.toCharArray(key);
-        String encoded = "";
+        StringBuilder encoded = new StringBuilder();
         int j = 0;
-        for (int i = 0; i < charArray.length; i++) {
-            char letter = charArray[i];
+        for (char letter : charArray) {
             if (letter != ' ') {
                 char keyLetter = keyArray[j % keyArray.length];
                 LetterReplacer getIndexOrReplace = new LetterReplacer();
                 int index = getIndexOrReplace.getIndexOfLetter(keyLetter);
                 char replaced = getIndexOrReplace.replaceLetter(letter, index);
-                encoded += replaced;
+                encoded.append(replaced);
                 j++;
             } else {
-                encoded += ' ';
+                encoded.append(' ');
             }
         }
-        return encoded;
+        return encoded.toString();
     }
 
     @Override
     public String decode(String stringToDecode, String key) {
         PrepareString prepare = new PrepareString();
-        prepare.prepareString(stringToDecode);
+        stringToDecode = prepare.prepareString(stringToDecode);
         StringCharArrayConverter change = new StringCharArrayConverter();
         char[] charArray = change.toCharArray(stringToDecode);
         char[] keyArray = change.toCharArray(key);
-        String decoded = "";
+        StringBuilder decoded = new StringBuilder();
         int j = 0;
-        for (int i = 0; i < charArray.length; i++) {
-            char letter = charArray[i];
+        for (char letter : charArray) {
             if (letter != ' ') {
                 char keyLetter = keyArray[j % keyArray.length];
                 LetterReplacer getIndexOrReplace = new LetterReplacer();
                 int index = -(getIndexOrReplace.getIndexOfLetter(keyLetter));
                 char replaced = getIndexOrReplace.replaceLetter(letter, index);
-                decoded += replaced;
+                decoded.append(replaced);
                 j++;
             } else {
-                decoded += ' ';
+                decoded.append(' ');
             }
         }
-        return decoded;
+        return decoded.toString();
     }
 }

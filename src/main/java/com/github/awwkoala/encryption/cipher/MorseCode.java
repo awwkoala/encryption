@@ -46,32 +46,28 @@ public class MorseCode implements Cipher {
     @Override
     public String encode(String stringToEncode, String key) {
         PrepareString prepare = new PrepareString();
-        prepare.prepareString(stringToEncode);
+        stringToEncode = prepare.prepareString(stringToEncode);
         StringCharArrayConverter change = new StringCharArrayConverter();
         char[] charArray = change.toCharArray(stringToEncode);
-        String encoded = "";
-        for (int i = 0; i < charArray.length; i++) {
-            if (MORSE_CODE.containsKey(charArray[i])) {
-                encoded += MORSE_CODE.get(charArray[i]) + "|";
-            } else {
-                encoded += ""; //if the character doesn't exist as a key in the hashmap, it's ignored in the encoded string
+        StringBuilder encoded = new StringBuilder();
+        for (char c : charArray) {
+            if (MORSE_CODE.containsKey(c)) {
+                encoded.append(MORSE_CODE.get(c)).append("|");
             }
         }
-        return encoded;
+        return encoded.toString();
     }
 
     @Override
     public String decode(String stringToDecode, String key) { //there will be no spaces between words in the decoded string
         BiMap<String, Character> morseCodeInversed = MORSE_CODE.inverse();
         String[] stringArray = stringToDecode.split("\\|");
-        String decoded = "";
-        for (int i = 0; i < stringArray.length; i++) {
-            if (morseCodeInversed.containsKey(stringArray[i])) {
-                decoded += morseCodeInversed.get(stringArray[i]);
-            } else {
-                decoded += "";
+        StringBuilder decoded = new StringBuilder();
+        for (String s : stringArray) {
+            if (morseCodeInversed.containsKey(s)) {
+                decoded.append(morseCodeInversed.get(s));
             }
         }
-        return decoded;
+        return decoded.toString();
     }
 }

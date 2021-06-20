@@ -17,12 +17,10 @@ public class LetterReplacer {
     }
 
     public int getIndexOfLetter(char letter) {
-        int index = 0;
         if (ArrayUtils.contains(ALPHABET, letter)) {
-            index = ArrayUtils.indexOf(ALPHABET, letter);
+            return ArrayUtils.indexOf(ALPHABET, letter);
         } else {
-            index = 0;
+            return 0;
         }
-        return index;
     }
 }

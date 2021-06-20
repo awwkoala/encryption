@@ -6,13 +6,11 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class GraphicalInterface {
     private JPanel panel1;
     private JTextField textIn;
-    private JComboBox cipherCB;
+    private JComboBox<Cipher> cipherCB;
     private JTextField textOut;
     private JButton encodeButton;
     private JButton decodeButton;
@@ -29,26 +27,17 @@ public class GraphicalInterface {
         cipherCB.addItem(new ROT13());
         cipherCB.addItem(new Vigenere());
         textKey.setEnabled(false);
-        cipherCB.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                final boolean enabled = cipherCB.getSelectedItem() instanceof Vigenere;
-                textKey.setEnabled(enabled);
-            }
+        cipherCB.addActionListener(e -> {
+            final boolean enabled = cipherCB.getSelectedItem() instanceof Vigenere;
+            textKey.setEnabled(enabled);
         });
-        encodeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String encoded = ((Cipher) cipherCB.getSelectedItem()).encode(textIn.getText(), textKey.getText());
-                textOut.setText(encoded);
-            }
+        encodeButton.addActionListener(e -> {
+            String encoded = ((Cipher) cipherCB.getSelectedItem()).encode(textIn.getText(), textKey.getText());
+            textOut.setText(encoded);
         });
-        decodeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String decoded = ((Cipher) cipherCB.getSelectedItem()).decode(textIn.getText(), textKey.getText());
-                textOut.setText(decoded);
-            }
+        decodeButton.addActionListener(e -> {
+            String decoded = ((Cipher) cipherCB.getSelectedItem()).decode(textIn.getText(), textKey.getText());
+            textOut.setText(decoded);
         });
     }
 

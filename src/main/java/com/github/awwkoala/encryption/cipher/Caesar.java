@@ -13,7 +13,7 @@ public class Caesar implements Cipher {
     @Override
     public String encode(String stringToEncode, String key) {
         PrepareString prepare = new PrepareString();
-        prepare.prepareString(stringToEncode);
+        stringToEncode = prepare.prepareString(stringToEncode);
         StringCharArrayConverter change = new StringCharArrayConverter();
         char[] charArray = change.toCharArray(stringToEncode);
         for (int i = 0; i < charArray.length; i++) {
@@ -21,14 +21,13 @@ public class Caesar implements Cipher {
             char encodedLetter = replacer.replaceLetter(charArray[i], 3);
             charArray[i] = encodedLetter;
         }
-        String encoded = change.toString(charArray);
-        return encoded;
+        return change.toString(charArray);
     }
 
     @Override
     public String decode(String stringToDecode, String key) {
         PrepareString prepare = new PrepareString();
-        prepare.prepareString(stringToDecode);
+        stringToDecode = prepare.prepareString(stringToDecode);
         StringCharArrayConverter change = new StringCharArrayConverter();
         char[] charArray = change.toCharArray(stringToDecode);
         for (int i = 0; i < charArray.length; i++) {
@@ -36,7 +35,6 @@ public class Caesar implements Cipher {
             char decodedLetter = replacer.replaceLetter(charArray[i], -3);
             charArray[i] = decodedLetter;
         }
-        String decoded = change.toString(charArray);
-        return decoded;
+        return change.toString(charArray);
     }
 }
