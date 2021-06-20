@@ -2,12 +2,12 @@ package com.github.awwkoala.encryption.util;
 import org.apache.commons.lang3.ArrayUtils;
 
 public class LetterReplacer {
+    private static final char[] ALPHABET = new char[]{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
     public char replaceLetter(char letter, int number) {
-        char[] alphabet = new char[]{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
         char replaced;
-        if (ArrayUtils.contains(alphabet,letter)) {
-            int i = ArrayUtils.indexOf(alphabet,letter);
-            replaced = alphabet[((i+number)%alphabet.length+alphabet.length)%alphabet.length];
+        if (ArrayUtils.contains(ALPHABET,letter)) {
+            int i = ArrayUtils.indexOf(ALPHABET,letter);
+            replaced = ALPHABET[((i+number)% ALPHABET.length+ ALPHABET.length)% ALPHABET.length];
         }
         else {
             replaced = letter;
@@ -15,10 +15,9 @@ public class LetterReplacer {
         return replaced;
     }
     public int getIndexOfLetter(char letter) {
-        char[] alphabet = new char[]{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
         int index = 0;
-        if (ArrayUtils.contains(alphabet,letter)) {
-            index = ArrayUtils.indexOf(alphabet, letter);
+        if (ArrayUtils.contains(ALPHABET,letter)) {
+            index = ArrayUtils.indexOf(ALPHABET, letter);
         }
         else {
             index = 0;
