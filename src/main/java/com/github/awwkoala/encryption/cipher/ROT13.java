@@ -37,4 +37,9 @@ public class ROT13 implements Cipher {
         }
         return change.toString(charArray);
     }
+
+    @Override
+    public boolean keyRequired() {
+        return false;
+    }
 }

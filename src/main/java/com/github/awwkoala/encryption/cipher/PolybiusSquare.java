@@ -11,7 +11,8 @@ public class PolybiusSquare implements Cipher {
         return "Polybius Square";
     }
 
-    private static final char[][] POLYBIUS_SQUARE = new char[][]{{'a', 'b', 'c', 'd', 'e'}, {'f', 'g', 'h', 'i', 'k'}, {'l', 'm', 'n', 'o', 'p'}, {'q', 'r', 's', 't', 'u'}, {'v', 'w', 'x', 'y', 'z'}};
+    private static final char[][] POLYBIUS_SQUARE = new char[][]{{'a', 'b', 'c', 'd', 'e'}, {'f', 'g', 'h', 'i', 'k'},
+            {'l', 'm', 'n', 'o', 'p'}, {'q', 'r', 's', 't', 'u'}, {'v', 'w', 'x', 'y', 'z'}};
 
     @Override
     public String encode(String stringToEncode, String key) {
@@ -33,18 +34,26 @@ public class PolybiusSquare implements Cipher {
     }
 
     @Override
-    public String decode(String stringToDecode, String key) { //Will always decode 24 to 'i', because there's no 'j' in my Polybius square. Also, there won't be spaces between words.
+    public String decode(String stringToDecode, String key) { //Will always decode 24 to 'i', because there's no 'j'
+        // in my Polybius square. Also, there won't be spaces between words.
         StringBuilder decoded = new StringBuilder();
         String[] numbersToDecode = stringToDecode.split("\\s+");
         for (String numberToDecode : numbersToDecode) {
-            if (numberToDecode.length() == 2 && numberToDecode.charAt(0) <= '5' && numberToDecode.charAt(0) >= '1' && numberToDecode.charAt(1) <= '5' && numberToDecode.charAt(1) >= '1') {
-                char letter = POLYBIUS_SQUARE[Character.getNumericValue(numberToDecode.charAt(0)) - 1][Character.getNumericValue(numberToDecode.charAt(1)) - 1];
+            if (numberToDecode.length() == 2 && numberToDecode.charAt(0) <= '5' && numberToDecode.charAt(0) >= '1' &&
+                    numberToDecode.charAt(1) <= '5' && numberToDecode.charAt(1) >= '1') {
+                char letter = POLYBIUS_SQUARE[Character.getNumericValue(numberToDecode.charAt(0)) - 1]
+                        [Character.getNumericValue(numberToDecode.charAt(1)) - 1];
                 decoded.append(letter);
             } else {
                 decoded.append(numberToDecode);
             }
         }
         return decoded.toString();
+    }
+
+    @Override
+    public boolean keyRequired() {
+        return false;
     }
 
     private Point findIndex(char searchedChar) {

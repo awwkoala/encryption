@@ -57,4 +57,9 @@ public class Vigenere implements Cipher {
         }
         return decoded.toString();
     }
+
+    @Override
+    public boolean keyRequired() {
+        return true;
+    }
 }

@@ -27,18 +27,12 @@ public class GraphicalInterface {
         cipherCB.addItem(new ROT13());
         cipherCB.addItem(new Vigenere());
         textKey.setEnabled(false);
-        cipherCB.addActionListener(e -> {
-            final boolean enabled = cipherCB.getSelectedItem() instanceof Vigenere;
-            textKey.setEnabled(enabled);
-        });
-        encodeButton.addActionListener(e -> {
-            String encoded = ((Cipher) cipherCB.getSelectedItem()).encode(textIn.getText(), textKey.getText());
-            textOut.setText(encoded);
-        });
-        decodeButton.addActionListener(e -> {
-            String decoded = ((Cipher) cipherCB.getSelectedItem()).decode(textIn.getText(), textKey.getText());
-            textOut.setText(decoded);
-        });
+        cipherCB.addActionListener(e -> textKey.setEnabled(((Cipher) cipherCB.getSelectedItem())
+                .keyRequired()));
+        encodeButton.addActionListener(e -> textOut.setText(((Cipher) cipherCB.getSelectedItem())
+                .encode(textIn.getText(), textKey.getText())));
+        decodeButton.addActionListener(e -> textOut.setText(((Cipher) cipherCB.getSelectedItem())
+                .decode(textIn.getText(), textKey.getText())));
     }
 
     {

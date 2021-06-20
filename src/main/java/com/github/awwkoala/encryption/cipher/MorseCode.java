@@ -70,4 +70,9 @@ public class MorseCode implements Cipher {
         }
         return decoded.toString();
     }
+
+    @Override
+    public boolean keyRequired() {
+        return false;
+    }
 }
