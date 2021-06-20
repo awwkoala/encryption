@@ -4,13 +4,14 @@ import com.github.awwkoala.encryption.util.LetterReplacer;
 import com.github.awwkoala.encryption.util.PrepareString;
 import com.github.awwkoala.encryption.util.StringCharArrayConverter;
 
-public class ROT13 {
+public class ROT13 implements Cipher {
     @Override
     public String toString() {
         return "ROT13 Cipher";
     }
 
-    public String encodeROT13(String stringToEncode) {
+    @Override
+    public String encode(String stringToEncode, String key) {
         PrepareString prepare = new PrepareString();
         prepare.prepareString(stringToEncode);
         StringCharArrayConverter change = new StringCharArrayConverter();
@@ -24,7 +25,8 @@ public class ROT13 {
         return encoded;
     }
 
-    public String decodeROT13(String stringToDecode) {
+    @Override
+    public String decode(String stringToDecode, String key) {
         PrepareString prepare = new PrepareString();
         prepare.prepareString(stringToDecode);
         StringCharArrayConverter change = new StringCharArrayConverter();

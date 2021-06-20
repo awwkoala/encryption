@@ -4,13 +4,14 @@ import com.github.awwkoala.encryption.util.LetterReplacer;
 import com.github.awwkoala.encryption.util.PrepareString;
 import com.github.awwkoala.encryption.util.StringCharArrayConverter;
 
-public class Vigenere {
+public class Vigenere implements Cipher {
     @Override
     public String toString() {
         return "Vigenere Cipher";
     }
 
-    public String encodeVigenere(String stringToEncode, String key) {
+    @Override
+    public String encode(String stringToEncode, String key) {
         PrepareString prepare = new PrepareString();
         prepare.prepareString(stringToEncode);
         StringCharArrayConverter change = new StringCharArrayConverter();
@@ -34,7 +35,8 @@ public class Vigenere {
         return encoded;
     }
 
-    public String decodeVigenere(String stringToDecode, String key) {
+    @Override
+    public String decode(String stringToDecode, String key) {
         PrepareString prepare = new PrepareString();
         prepare.prepareString(stringToDecode);
         StringCharArrayConverter change = new StringCharArrayConverter();

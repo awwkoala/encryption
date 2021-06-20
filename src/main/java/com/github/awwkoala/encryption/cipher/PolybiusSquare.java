@@ -5,7 +5,7 @@ import com.github.awwkoala.encryption.util.StringCharArrayConverter;
 
 import java.awt.*;
 
-public class PolybiusSquare {
+public class PolybiusSquare implements Cipher {
     @Override
     public String toString() {
         return "Polybius Square";
@@ -13,7 +13,8 @@ public class PolybiusSquare {
 
     char[][] polybiusSquare = new char[][]{{'a', 'b', 'c', 'd', 'e'}, {'f', 'g', 'h', 'i', 'k'}, {'l', 'm', 'n', 'o', 'p'}, {'q', 'r', 's', 't', 'u'}, {'v', 'w', 'x', 'y', 'z'}};
 
-    public String encodePolybius(String stringToEncode) {
+    @Override
+    public String encode(String stringToEncode, String key) {
         PrepareString prepare = new PrepareString();
         prepare.prepareString(stringToEncode);
         stringToEncode = stringToEncode.replace('j', 'i');
@@ -31,7 +32,8 @@ public class PolybiusSquare {
         return encoded;
     }
 
-    public String decodePolybius(String stringToDecode) { //Will always decode 24 to 'i', because there's no 'j' in my Polybius square. Also, there won't be spaces between words.
+    @Override
+    public String decode(String stringToDecode, String key) { //Will always decode 24 to 'i', because there's no 'j' in my Polybius square. Also, there won't be spaces between words.
         PrepareString prepare = new PrepareString();
         prepare.prepareString(stringToDecode);
         StringCharArrayConverter change = new StringCharArrayConverter();

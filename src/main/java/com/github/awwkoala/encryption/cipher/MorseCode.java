@@ -5,7 +5,7 @@ import com.github.awwkoala.encryption.util.StringCharArrayConverter;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
-public class MorseCode {
+public class MorseCode implements Cipher {
     @Override
     public String toString() {
         return "Morse Code";
@@ -43,7 +43,8 @@ public class MorseCode {
         MORSE_CODE.put('z', "— — • •");
     }
 
-    public String encodeMorse(String stringToEncode) {
+    @Override
+    public String encode(String stringToEncode, String key) {
         PrepareString prepare = new PrepareString();
         prepare.prepareString(stringToEncode);
         StringCharArrayConverter change = new StringCharArrayConverter();
@@ -59,7 +60,8 @@ public class MorseCode {
         return encoded;
     }
 
-    public String decodeMorse(String stringToDecode) { //there will be no spaces between words in the decoded string
+    @Override
+    public String decode(String stringToDecode, String key) { //there will be no spaces between words in the decoded string
         BiMap<String, Character> morseCodeInversed = MORSE_CODE.inverse();
         String[] stringArray = stringToDecode.split("\\|");
         String decoded = "";
