@@ -1,9 +1,9 @@
 package com.github.awwkoala.encryption.cipher;
 
+import com.github.awwkoala.encryption.util.PrepareString;
 import com.github.awwkoala.encryption.util.StringCharArrayConverter;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import org.apache.commons.lang3.StringUtils;
 
 public class MorseCode {
     @Override
@@ -11,7 +11,8 @@ public class MorseCode {
         return "Morse Code";
     }
 
-    private BiMap<Character, String> morseCode;
+    private final BiMap<Character, String> morseCode;
+
     public MorseCode() {
         morseCode = HashBiMap.create();
         morseCode.put('a', "• —");
@@ -41,33 +42,31 @@ public class MorseCode {
         morseCode.put('y', "— • — —");
         morseCode.put('z', "— — • •");
     }
+
     public String encodeMorse(String stringToEncode) {
-        stringToEncode = StringUtils.stripAccents(stringToEncode);
-        stringToEncode = stringToEncode.toLowerCase();
+        PrepareString prepare = new PrepareString();
+        prepare.prepareString(stringToEncode);
         StringCharArrayConverter change = new StringCharArrayConverter();
         char[] charArray = change.toCharArray(stringToEncode);
         String encoded = "";
-        for(int i=0;i<charArray.length;i++) {
+        for (int i = 0; i < charArray.length; i++) {
             if (morseCode.containsKey(charArray[i])) {
-                encoded += morseCode.get(charArray[i])+"|";
-            }
-            else {
+                encoded += morseCode.get(charArray[i]) + "|";
+            } else {
                 encoded += ""; //if the character doesn't exist as a key in the hashmap, it's ignored in the encoded string
             }
         }
         return encoded;
     }
+
     public String decodeMorse(String stringToDecode) { //there will be no spaces between words in the decoded string
-        BiMap<String,Character> morseCodeInversed = morseCode.inverse();
-        stringToDecode = StringUtils.stripAccents(stringToDecode);
-        stringToDecode = stringToDecode.toLowerCase();
+        BiMap<String, Character> morseCodeInversed = morseCode.inverse();
         String[] stringArray = stringToDecode.split("\\|");
         String decoded = "";
-        for(int i=0;i<stringArray.length;i++) {
+        for (int i = 0; i < stringArray.length; i++) {
             if (morseCodeInversed.containsKey(stringArray[i])) {
                 decoded += morseCodeInversed.get(stringArray[i]);
-            }
-            else {
+            } else {
                 decoded += "";
             }
         }
