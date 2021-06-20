@@ -5,6 +5,7 @@ public class StringCharArrayConverter {
         char[] charArray = string.toCharArray();
         return charArray;
     }
+
     public String toString(char[] charArray) {
         String string = new String(charArray);
         return string;
