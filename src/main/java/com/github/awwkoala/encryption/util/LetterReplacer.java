@@ -10,7 +10,6 @@ public class LetterReplacer {
             replaced = alphabet[((i+number)%alphabet.length+alphabet.length)%alphabet.length];
         }
         else {
-            //System.out.println("There's no such letter in an English alphabet.");
             replaced = letter;
         }
         return replaced;
